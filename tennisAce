@@ -8,3 +8,17 @@ from sklearn.metrics import r2_score, mean_squared_error
 def loadData(filePath):
     """Load the tennis stats CSV dataset."""
     return pd.read_csv(filePath)
+
+
+def preprocessData(df):
+    """Select features and target, and clean missing values."""
+    df = df.dropna()
+
+    # Features and target
+    features = df[[
+        'FirstServe', 'FirstServePointsWon', 'SecondServePointsWon',
+        'Aces', 'BreakPointsSaved', 'BreakPointsFaced', 'DoubleFaults',
+        'ReturnGamesWon', 'ServiceGamesWon', 'TotalPointsWon'
+    ]]
+    target = df['Winnings']
+    return features, target
