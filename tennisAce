@@ -22,3 +22,10 @@ def preprocessData(df):
     ]]
     target = df['Winnings']
     return features, target
+
+
+def trainModel(X_train, y_train):
+    """Train a linear regression model."""
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    return model
