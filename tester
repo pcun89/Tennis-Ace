@@ -1,0 +1,39 @@
+import unittest
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+
+class TennisAceModel:
+    def __init__(self, coefficients, intercept):
+        self.coefficients = np.array(coefficients)
+        self.intercept = intercept
+
+    def predict_winnings(self, features):
+        features = np.array(features)
+        return np.dot(features, self.coefficients) + self.intercept
+
+
+class TestTennisAceModel(unittest.TestCase):
+
+    def setUp(self):
+        # Hypothetical model coefficients and intercept from training
+        self.coefficients = [200, 150, 180, 50, 120, -20, -30, 90, 200, 160]
+        self.intercept = 5000
+
+        self.model = TennisAceModel(self.coefficients, self.intercept)
+
+    def test_prediction_with_sample_input(self):
+        # Sample tennis stats input
+        input_features = [60.0, 75.0, 50.0, 5, 60.0, 5, 2, 30.0, 80.0, 52.0]
+        predicted_winnings = self.model.predict_winnings(input_features)
+
+        # Assert prediction is within expected range
+        self.assertTrue(
+            50000 <= predicted_winnings <= 200000,
+            f"Prediction out of expected range: {predicted_winnings}"
+        )
+
+    def test_prediction_zero_input(self):
+        input_features = [0] * 10
+        predicted_winnings = self.model.predict_winnings(input_features)
+        self.asse
